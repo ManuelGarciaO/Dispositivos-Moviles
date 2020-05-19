@@ -58,7 +58,7 @@ public class NoticiaAdapter extends BaseAdapter {
         TextView descripcion = convertView.findViewById(R.id.txtDescripcion);
 
         ImageLoader imageLoader = ImageLoader.getInstance();
-        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(true).showImageForEmptyUri(fallback).showImageOnFail(fallback).showImageOnLoading(fallback).build();
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(true).showImageForEmptyUri(null).showImageOnFail(null).showImageOnLoading(null).build();
 
         Noticia noticia = datos.get(position);
 
