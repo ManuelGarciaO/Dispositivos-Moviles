@@ -1,18 +1,58 @@
 package com.example.sportsapps;
 
-import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class NoticiaAdapter extends BaseAdapter {
-    private ArrayList<Noticia> datos;
-    private Activity activity;
+public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaViewHolder> {
 
-    public NoticiaAdapter(ArrayList<Noticia> datos, Activity activity) {
+    public static class NoticiaViewHolder extends RecyclerView.ViewHolder{
+        public ImageView imagen;
+        public TextView titulotxt, descripciontxt;
+        public NoticiaViewHolder(@NonNull View itemView){
+            super(itemView);
+            imagen = itemView.findViewById(R.id.imageView);
+            titulotxt = itemView.findViewById(R.id.txtTitulo);
+            descripciontxt = itemView.findViewById(R.id.txtDescripcion2);
+        }
+    }
+
+    private ArrayList<Noticia> noticias;
+    private View.OnClickListener listener;
+    public NoticiaAdapter(ArrayList<Noticia> noticias, View.OnClickListener listener){
+        this.noticias = noticias;
+        this.listener= listener;
+    }
+
+    @NonNull
+    @Override
+    public NoticiaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_row_noticias, parent, false);
+        v.setOnClickListener(listener);
+        NoticiaViewHolder nvh = new NoticiaViewHolder(v);
+        return nvh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull NoticiaViewHolder holder, int position) {
+        holder.titulotxt.setText(noticias.get(position).getTitulo());
+        holder.descripciontxt.setText(noticias.get(position).getDescripcion());
+    }
+
+    @Override
+    public int getItemCount() {
+        return noticias.size();
+    }
+
+
+    /*public NoticiaAdapter(ArrayList<Noticia> datos, Activity activity) {
         this.datos = datos;
         this.activity = activity;
     }
@@ -40,15 +80,25 @@ public class NoticiaAdapter extends BaseAdapter {
             convertView = activity.getLayoutInflater().inflate(R.layout.row, null);
         }
 
+        // UNIVERSAL IMAGE LOADER SETUP
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).imageScaleType(ImageScaleType.EXACTLY).displayer(new FadeInBitmapDisplayer(300)).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(convertView.getContext()).defaultDisplayImageOptions(defaultOptions).memoryCache(new WeakMemoryCache()).diskCacheSize(100 * 1024 * 1024).build();
+        ImageLoader.getInstance().init(config);
+        // END - UNIVERSAL IMAGE LOADER SETUP
+
+        ImageView imagen = convertView.findViewById(R.id.imageView);
         TextView titulo = convertView.findViewById(R.id.txtTitulo);
         TextView descripcion = convertView.findViewById(R.id.txtDescripcion);
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(true).showImageForEmptyUri(null).showImageOnFail(null).showImageOnLoading(null).build();
 
         Noticia noticia = datos.get(position);
 
         titulo.setText(noticia.getTitulo());
         descripcion.setText(noticia.getDescripcion());
-
+        imageLoader.displayImage(noticia.getUrl(), imagen, options);
 
         return convertView;
-    }
+    }*/
 }

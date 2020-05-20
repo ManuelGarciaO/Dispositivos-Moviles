@@ -40,9 +40,11 @@
                     android:textSize="25dp" />
 
                 <TextView
-                    android:id="@+id/txtDescripcion"
+                    android:id="@+id/txtDescripcion2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLength="120"
                     android:text="Descripcion"
                     android:textSize="16dp" />
 
