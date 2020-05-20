@@ -1,11 +1,16 @@
 package com.example.sportsapps;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -15,11 +20,48 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
-public class NoticiaAdapter extends BaseAdapter {
-    private ArrayList<Noticia> datos;
-    private Activity activity;
+public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaViewHolder> {
+    private ArrayList<Noticia> noticias;
+    private View.OnClickListener listener;
 
-    public NoticiaAdapter(ArrayList<Noticia> datos, Activity activity) {
+    public static class NoticiaViewHolder extends RecyclerView.ViewHolder{
+        public ImageView imagen;
+        public TextView titulotxt, descripciontxt;
+        public NoticiaViewHolder(@NonNull View itemView){
+            super(itemView);
+            imagen = itemView.findViewById(R.id.imageView);
+            titulotxt = itemView.findViewById(R.id.txtTitulo);
+            descripciontxt = itemView.findViewById(R.id.txtDescripcion);
+        }
+    }
+
+    public NoticiaAdapter(ArrayList<Noticia> noticias, View.OnClickListener listener){
+        this.noticias = noticias;
+        this.listener= listener;
+    }
+
+    @NonNull
+    @Override
+    public NoticiaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_row_noticias, parent, false);
+        v.setOnClickListener(listener);
+        NoticiaViewHolder nvh = new NoticiaViewHolder(v);
+        return nvh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull NoticiaViewHolder holder, int position) {
+        holder.titulotxt.setText(noticias.get(position).getTitulo());
+        holder.descripciontxt.setText(noticias.get(position).getDescripcion());
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
+
+
+    /*public NoticiaAdapter(ArrayList<Noticia> datos, Activity activity) {
         this.datos = datos;
         this.activity = activity;
     }
@@ -67,5 +109,5 @@ public class NoticiaAdapter extends BaseAdapter {
         imageLoader.displayImage(noticia.getUrl(), imagen, options);
 
         return convertView;
-    }
+    }*/
 }

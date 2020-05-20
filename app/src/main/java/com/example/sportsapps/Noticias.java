@@ -2,11 +2,15 @@ package com.example.sportsapps;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,18 +20,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Noticias extends AppCompatActivity implements Handler.Callback {
+public class Noticias extends AppCompatActivity implements Handler.Callback, View.OnClickListener {
 
     private Handler dataHandler;
     private ArrayList<Noticia> noticias;
-    private ListView listaNoticias;
+    //private ListView listaNoticias;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noticias);
-        listaNoticias = findViewById(R.id.lstNoticias);
-
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
         noticias = new ArrayList<>();
+
         dataHandler = new Handler(Looper.getMainLooper(), this);
         Request r = new Request("https://manuel19299.github.io/SportsApp/data/noticias.json", dataHandler);
         r.start();
@@ -44,8 +50,23 @@ public class Noticias extends AppCompatActivity implements Handler.Callback {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        NoticiaAdapter adaptador = new NoticiaAdapter(noticias, this);
-        listaNoticias.setAdapter(adaptador);
+
+        NoticiaAdapter adapter = new NoticiaAdapter(noticias, this);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(adapter);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int pos = recyclerView.getChildLayoutPosition(v);
+        Intent intento = new Intent(this, NoticiasInfoActivity.class);
+        intento.putExtra("Titulo", noticias.get(pos).getTitulo());
+        intento.putExtra("Descripcion", noticias.get(pos).getDescripcion());
+        intento.putExtra("Url", noticias.get(pos).getUrl());
+        startActivity(intento);
     }
 }

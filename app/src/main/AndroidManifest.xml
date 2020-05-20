@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Posiciones"></activity>
+        <activity android:name=".NoticiasInfoActivity"></activity>
+        <activity android:name=".Posiciones" />
         <activity android:name=".Resultados" />
         <activity android:name=".Noticias" />
         <activity
