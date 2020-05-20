@@ -21,8 +21,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import java.util.ArrayList;
 
 public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaViewHolder> {
-    private ArrayList<Noticia> noticias;
-    private View.OnClickListener listener;
 
     public static class NoticiaViewHolder extends RecyclerView.ViewHolder{
         public ImageView imagen;
@@ -35,6 +33,8 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaV
         }
     }
 
+    private ArrayList<Noticia> noticias;
+    private View.OnClickListener listener;
     public NoticiaAdapter(ArrayList<Noticia> noticias, View.OnClickListener listener){
         this.noticias = noticias;
         this.listener= listener;
@@ -57,7 +57,7 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiaV
 
     @Override
     public int getItemCount() {
-        return 0;
+        return noticias.size();
     }
 
 

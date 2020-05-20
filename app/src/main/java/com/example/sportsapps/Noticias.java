@@ -24,17 +24,17 @@ public class Noticias extends AppCompatActivity implements Handler.Callback, Vie
 
     private Handler dataHandler;
     private ArrayList<Noticia> noticias;
-    //private ListView listaNoticias;
     private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noticias);
+
+        dataHandler = new Handler(Looper.getMainLooper(), this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         noticias = new ArrayList<>();
-
-        dataHandler = new Handler(Looper.getMainLooper(), this);
         Request r = new Request("https://manuel19299.github.io/SportsApp/data/noticias.json", dataHandler);
         r.start();
     }
@@ -45,7 +45,7 @@ public class Noticias extends AppCompatActivity implements Handler.Callback, Vie
         try {
             for(int i = 0; i < datos.length(); i++){
                 JSONObject actual = datos.getJSONObject(i);
-                noticias.add(new Noticia((actual.getString("titulo")),actual.getString("descripcion"),actual.getString("url")));
+                noticias.add(new Noticia(actual.getString("titulo"),actual.getString("descripcion"),actual.getString("url")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
