@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Semail = email.getText().toString();
                 Spass = pass.getText().toString();
 
@@ -55,11 +56,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginUser(){
+
         mAuth.signInWithEmailAndPassword(Semail, Spass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent intento = new Intent(MainActivity.this, Menu.class);
+                    Intent intento = new Intent(MainActivity.this, Principal.class);
                     startActivity(intento);
                 } else Toast.makeText(MainActivity.this, "No se pudo iniciar sesion", Toast.LENGTH_SHORT).show();
             }
