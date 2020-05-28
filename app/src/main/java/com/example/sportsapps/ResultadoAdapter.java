@@ -1,4 +1,4 @@
-package com.example.resultadosposicionesparcial2;
+package com.example.sportsapps;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -28,7 +28,7 @@ public class ResultadoAdapter extends RecyclerView.Adapter<ResultadoAdapter.Resu
     }
     private ArrayList<Resultado> resultados;
     private View.OnClickListener listener;
-    public ResultadoAdapter(ArrayList<Resultado> resultados,View.OnClickListener listener) {
+    public ResultadoAdapter(ArrayList<Resultado> resultados, View.OnClickListener listener) {
         this.resultados = resultados;
         this.listener = listener;
     }

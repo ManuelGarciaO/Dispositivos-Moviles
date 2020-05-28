@@ -37,7 +37,7 @@ public class Menu extends AppCompatActivity implements  Handler.Callback {
     }
 
     public void goResultados(View v) {
-        Intent intento = new Intent(this, Resultados.class);
+        Intent intento = new Intent(this, ResultadosActiviy.class);
         startActivity(intento);
     }
 
