@@ -10,7 +10,7 @@
         android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
+        android:layout_marginStart="155dp"
         android:layout_marginTop="45dp"
         android:text="01/01/2020"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +32,39 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="14dp"
         android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/flechaant"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="45dp"
+        android:onClick="menos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/flechaatras_foreground" />
+
+    <ImageView
+        android:id="@+id/flechaSiguiente"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="45dp"
+        android:onClick="mas"
+        app:layout_constraintStart_toEndOf="@+id/txtDate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/flechadelante_foreground" />
+
+    <TextView
+        android:id="@+id/txtNoResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="232dp"
+        android:text="No hay resultados para esta fecha"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
