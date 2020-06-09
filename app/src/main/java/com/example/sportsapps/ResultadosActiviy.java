@@ -33,7 +33,7 @@ public class ResultadosActiviy extends AppCompatActivity implements  Handler.Cal
     private String fecha;
     //Para seleccionar la fecha
     private Calendar mCurrentDate;
-    private TextView fechatxt,ligatxt;
+    private TextView fechatxt,ligatxt, noRes;
     int day, month, year;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class ResultadosActiviy extends AppCompatActivity implements  Handler.Cal
         ligatxt=findViewById(R.id.txtLiga);
         ligatxt.setText("Resultados de la "+liga);
         fechatxt=findViewById(R.id.txtDate);
+        noRes=findViewById(R.id.txtNoResultado);
         mCurrentDate =Calendar.getInstance();
         day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
         month = mCurrentDate.get(Calendar.MONTH);
@@ -78,10 +79,33 @@ public class ResultadosActiviy extends AppCompatActivity implements  Handler.Cal
         fecha=day+"/"+month+"/"+year;
         fechatxt.setText(fecha);
     }
+
+    public void mas(View v){
+        mCurrentDate.add(Calendar.DATE,1);
+        day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+        month = mCurrentDate.get(Calendar.MONTH);
+        year = mCurrentDate.get(Calendar.YEAR);
+        month =  month+1;
+        this.setFecha();
+        req();
+    }
+    public void menos(View v){
+        mCurrentDate.add(Calendar.DATE,-1);
+        day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+        month = mCurrentDate.get(Calendar.MONTH);
+        year = mCurrentDate.get(Calendar.YEAR);
+        month =  month+1;
+        this.setFecha();
+        req();
+    }
+
+
     private void req(){
         Request r = new Request("https://manuel19299.github.io/SportsApp/data/resultados2.json", dataHandler);
         r.start();
     }
+
+
 
 
     @Override
@@ -119,6 +143,11 @@ public class ResultadosActiviy extends AppCompatActivity implements  Handler.Cal
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        if(resultados.size()>0){
+            noRes.setVisibility(View.INVISIBLE);
+        }else{
+            noRes.setVisibility(View.VISIBLE);
         }
         ResultadoAdapter adapter = new ResultadoAdapter(resultados,this);
 
