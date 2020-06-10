@@ -7,6 +7,16 @@
     tools:context=".ui.slideshow.SlideshowFragment">
 
     <Button
+        android:id="@+id/btnPartidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="16dp"
+        android:text="Partidos"
+        app:layout_constraintBottom_toTopOf="@+id/btnPosiciones"
+        app:layout_constraintStart_toEndOf="@+id/btnResultados" />
+
+    <Button
         android:id="@+id/btnResultados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,8 +54,10 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/liga_2"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="10dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
