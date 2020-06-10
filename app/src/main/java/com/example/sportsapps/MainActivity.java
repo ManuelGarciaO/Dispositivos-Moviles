@@ -13,14 +13,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
     private EditText email, pass;
     private Button Login;
     private String Sname, Semail, Spass;
@@ -37,16 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth auth) {
-                FirebaseUser firebaseUser = auth.getCurrentUser();
-                if (firebaseUser != null) {
-                    Intent intent = new Intent(MainActivity.this, Principal.class);
-                    startActivity(intent);
+        /*if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            FirebaseAuth.getInstance().getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                @Override
+                public void onSuccess(GetTokenResult getTokenResult) {
+
                 }
-            }
-        };
+            });
+        }*/
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,5 +78,30 @@ public class MainActivity extends AppCompatActivity {
     public void goRegister(View v){
         Intent intento = new Intent(this, Register.class);
         startActivity(intento);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().removeAuthStateListener(this);
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        if(firebaseAuth.getCurrentUser() != null){
+            firebaseAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                @Override
+                public void onSuccess(GetTokenResult getTokenResult) {
+                    Intent intento = new Intent(MainActivity.this, Principal.class);
+                    startActivity(intento); 
+                }
+            });
+        }
     }
 }

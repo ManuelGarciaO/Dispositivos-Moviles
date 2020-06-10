@@ -180,6 +180,8 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
                 logo = new ImageView(this);
                 logo.setPadding(10, 10, 10, 10);
                 logo.setLayoutParams(layoutLogo);
+                logo.setMaxHeight(20);
+                logo.setMaxWidth(20);
                 Picasso.get().load(lstPosiciones.get(i).getLogo()).into(logo);
                 fila.addView(logo);
 
