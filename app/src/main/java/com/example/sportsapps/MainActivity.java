@@ -63,13 +63,13 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
     }
 
     private void loginUser(){
-
         mAuth.signInWithEmailAndPassword(Semail, Spass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Intent intento = new Intent(MainActivity.this, Principal.class);
                     startActivity(intento);
+                    finish();
                 } else Toast.makeText(MainActivity.this, "No se pudo iniciar sesion", Toast.LENGTH_SHORT).show();
             }
         });
@@ -99,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
                 @Override
                 public void onSuccess(GetTokenResult getTokenResult) {
                     Intent intento = new Intent(MainActivity.this, Principal.class);
-                    startActivity(intento); 
+                    startActivity(intento);
+                    finish();
                 }
             });
         }

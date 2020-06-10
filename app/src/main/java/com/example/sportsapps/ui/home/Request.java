@@ -1,8 +1,7 @@
-package com.example.sportsapps;
+package com.example.sportsapps.ui.home;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;

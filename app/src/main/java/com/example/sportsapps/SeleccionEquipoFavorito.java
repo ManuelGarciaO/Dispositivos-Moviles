@@ -60,7 +60,6 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
     @Override
     public boolean handleMessage(@NonNull Message msg){
         JSONArray datos = (JSONArray) msg.obj;
-        Log.wtf("Loque",datos.toString());
         try{
             for(int i = 0; i < datos.length(); i++ ){
                 JSONObject actual = datos.getJSONObject(i);
@@ -70,7 +69,6 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
             ex.getMessage();
         }
         nombreEquipos = new ArrayList<>();
-        Log.wtf("Loque",equipos.size()+"");
         for(int i = 0; i < equipos.size(); i++){
             Log.wtf("Loque",equipos.get(i).getEquipo());
             nombreEquipos.add(equipos.get(i).getEquipo());
@@ -90,7 +88,7 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
             }
         }
         mRootReference.child("Users").child(id).setValue(map);
-        Intent intent = new Intent(SeleccionEquipoFavorito.this, Menu.class);
+        Intent intent = new Intent(SeleccionEquipoFavorito.this, Principal.class);
         finish();
         startActivity(intent);
     }

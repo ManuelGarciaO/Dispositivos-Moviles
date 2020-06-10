@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -120,23 +119,18 @@ public class ResultadosActiviy extends AppCompatActivity implements  Handler.Cal
         try {
             for(int i = 0; i < datos.length(); i++){
                 JSONObject actual = datos.getJSONObject(i);
-                Log.wtf("prueba", "level1"+actual.getString("liga"));
                 //Validar Liga
                 if(actual.getString("liga").equals(liga)){
-                    Log.wtf("prueba", "equals to liga1 = "+actual.getJSONArray("resultados"));
                     //Obtener resultados de Liga
                     JSONArray datosLiga = actual.getJSONArray("resultados");
                     for(int j = 0; j < datosLiga.length(); j++){
                         JSONObject actualLiga = datosLiga.getJSONObject(j);
-                        Log.wtf("prueba", "datosLiga actual fecha = "+actualLiga.getString("fecha"));
                         //Validar fecha
                         if(actualLiga.getString("fecha").equals(fecha)){
-                            Log.wtf("prueba", "equals to fecha = "+actualLiga.getString("fecha"));
                             //Obtener resultados de fecha
                             JSONArray datosFecha = actualLiga.getJSONArray("resultados");
                             for (int k = 0; k < datosFecha.length(); k++){
                                 JSONObject actualPartido = datosFecha.getJSONObject(k);
-                                Log.wtf("prueba", "datosFecha actual partido = "+actualPartido.toString());
                                 resultados.add(new Resultado(actualPartido.getString("equipoLocal"),actualPartido.getString("equipoVisitante"),actualPartido.getString("golesLocal"),actualPartido.getString("golesVisitante"),actualPartido.getString("faltasLocal"),actualPartido.getString("faltasVisitante"),actualPartido.getString("tarAmarillasL"),actualPartido.getString("tarAmarillasV"),actualPartido.getString("tarRojasL"),actualPartido.getString("tarRojasV"),actualPartido.getString("fdlugarL"),actualPartido.getString("fdlugarV"),actualPartido.getString("esquinasL"),actualPartido.getString("esquinasV"),actualPartido.getString("salvadasL"),actualPartido.getString("salvadasV"),actualPartido.getString("pctPosL"),actualPartido.getString("pctPosV"),actualPartido.getString("tirosL"),actualPartido.getString("tirosV")));
 
                             }

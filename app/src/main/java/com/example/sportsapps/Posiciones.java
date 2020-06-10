@@ -62,7 +62,6 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
                         JSONObject equipoActual = posiciones.getJSONObject(j);
 
                         lstPosiciones.add(new DatosPosicion(equipoActual.getString("equipo"), equipoActual.getInt("juegosJugados"), equipoActual.getInt("juegosGanados"), equipoActual.getInt("juegosEmpatados"), equipoActual.getInt("juegosPerdidos"), equipoActual.getInt("golesAFavor"), equipoActual.getInt("golesEnContra"), equipoActual.getInt("diferenciaDeGoles"), equipoActual.getInt("puntos"), equipoActual.getString("logo")));
-                        Log.wtf("prueba",lstPosiciones.size()+"");
                     }
                 }
             }
@@ -180,9 +179,7 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
                 logo = new ImageView(this);
                 logo.setPadding(10, 10, 10, 10);
                 logo.setLayoutParams(layoutLogo);
-                logo.setMaxHeight(20);
-                logo.setMaxWidth(20);
-                Picasso.get().load(lstPosiciones.get(i).getLogo()).into(logo);
+                Picasso.get().load(lstPosiciones.get(i).getLogo()).resize(30,30).into(logo);
                 fila.addView(logo);
 
                 equipo = new TextView(this);

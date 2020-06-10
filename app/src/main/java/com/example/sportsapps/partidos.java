@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -72,11 +71,9 @@ public class partidos extends AppCompatActivity implements  Handler.Callback{
                         day=dayOfMonth;
                         year=year;
                         if(year>=anioA){
-                            Log.wtf("fechaSol","ano coincide");
                             if(monthOfYear>mesA){
                                 mCurrentDate.set(Calendar.DATE,day);
                                 mCurrentDate.set(Calendar.MONTH,month);
-                                Log.wtf("fechaSol","mes mayor");
                                 fechatxt.setText(fecha);
                                 req();
                                 if(fecha.equals(fechaActual)){
@@ -89,11 +86,9 @@ public class partidos extends AppCompatActivity implements  Handler.Callback{
                                 }
                             }
                             else if(monthOfYear==mesA){
-                                Log.wtf("fechaSol","mes igual");
                                 if(dayOfMonth>=diaA){
                                     mCurrentDate.set(Calendar.DATE,day);
                                     mCurrentDate.set(Calendar.MONTH,month);
-                                    Log.wtf("fechaSol","dia igual o mayor");
                                     fechatxt.setText(fecha);
                                     req();
                                     if(fecha.equals(fechaActual)){
@@ -175,24 +170,18 @@ public class partidos extends AppCompatActivity implements  Handler.Callback{
         try {
             for(int i = 0; i < datos.length(); i++){
                 JSONObject actual = datos.getJSONObject(i);
-                Log.wtf("prueba", "level1"+actual.getString("liga"));
                 //Validar Liga
                 if(actual.getString("liga").equals(liga)){
-                    Log.wtf("prueba", "equals to liga1 = "+actual.getJSONArray("resultados"));
                     //Obtener resultados de Liga
-                    JSONArray datosLiga = actual.getJSONArray("resultados");
+                    JSONArray datosLiga = actual.getJSONArray("partidos");
                     for(int j = 0; j < datosLiga.length(); j++){
                         JSONObject actualLiga = datosLiga.getJSONObject(j);
-                        Log.wtf("prueba", "datosLiga actual fecha = "+actualLiga.getString("fecha"));
                         //Validar fecha
                         if(actualLiga.getString("fecha").equals(fecha)){
-                            Log.wtf("prueba", "equals to fecha = "+actualLiga.getString("fecha"));
                             //Obtener resultados de fecha
                             JSONArray datosFecha = actualLiga.getJSONArray("partidos");
-                            Log.wtf("prueba2", "datosFecha actual partido = "+datosFecha.toString());
                             for (int k = 0; k < datosFecha.length(); k++){
                                 JSONObject actualPartido = datosFecha.getJSONObject(k);
-                                Log.wtf("prueba2", "datosFecha actual partido = "+actualPartido.toString());
                                 partidos.add(new Partido(actualPartido.getString("equipoLocal"),actualPartido.getString("equipoVisitante"),actualPartido.getString("hora")));
                             }
                         }
