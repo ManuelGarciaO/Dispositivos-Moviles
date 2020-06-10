@@ -16,5 +16,16 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/soccer"
             android:title="@string/liga_2" />
+        <group>
+            <group><group><group>
+
+                <item
+                    android:id="@+id/nav_cerrarsesion"
+                    android:icon="@drawable/logout_foreground"
+                    android:title="Cerrar sesión" />
+            </group></group></group>
+
+        </group>
+
     </group>
 </menu>
