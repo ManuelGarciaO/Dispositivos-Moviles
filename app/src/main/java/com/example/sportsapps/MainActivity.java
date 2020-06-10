@@ -22,11 +22,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private EditText email, pass;
     private Button Login;
-    private final String ARCHIVO = "Login";
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
     private String Sname, Semail, Spass;
-    //private Map<String, ?> preferences;
 
     FirebaseAuth mAuth;
 
@@ -52,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 } else Toast.makeText(MainActivity.this, "Debes llenar todos los campos", Toast.LENGTH_SHORT).show();
             }
         });
-        //cargarPrefs();
     }
 
     private void loginUser(){
@@ -68,37 +63,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*public void goMenu(View v){
-        boolean b = false;
-        for(Map.Entry<String, ?> entry : preferences.entrySet()) {
-            if(entry.getKey().equals("name")) Sname = prefs.getString("name", "");
-            if(entry.getKey().equals("email")){
-                if(email.getText().toString().equals(Semail)) {
-                    Semail = prefs.getString("email", "");
-                    b = true;
-                }
-            }
-            if(b) Spass = prefs.getString("password", "");
-        }*
-        //if(!b) Toast.makeText(this, "EL CORREO NO EXISTE", Toast.LENGTH_SHORT).show();
-        if(email.getText().toString().equals(Semail) && pass.getText().toString().equals(Spass)) {
-            Toast.makeText(this, "INGRESO CORRECTO", Toast.LENGTH_SHORT).show();
-            Intent intento = new Intent(this, Menu.class);
-            startActivity(intento);
-        } else Toast.makeText(this,"CORREO Y/O CONTRASEÑA INCORRECTOS", Toast.LENGTH_SHORT).show();
-    }*/
-
     public void goRegister(View v){
         Intent intento = new Intent(this, Register.class);
         startActivity(intento);
     }
-
-    /*public void cargarPrefs(){
-        prefs = getSharedPreferences(ARCHIVO, Context.MODE_PRIVATE);
-        editor = prefs.edit();
-        //preferences = prefs.getAll();
-        Sname = prefs.getString("name","");
-        Semail = prefs.getString("email","");
-        Spass = prefs.getString("password","");
-    }*/
 }

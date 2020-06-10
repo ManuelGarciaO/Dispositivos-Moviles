@@ -28,12 +28,9 @@ import java.util.Set;
 public class Register extends AppCompatActivity {
     private EditText name, email, pass;
     private Button register;
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
-    private final String ARCHIVO = "Login";
-    private Map<String, ?> preferences;
-    private String nombre, correoE, contra;
+    private String nombre, correoE, contra, id;
 
+    Map<String, Object> map;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
 
@@ -63,9 +60,6 @@ public class Register extends AppCompatActivity {
                 } else Toast.makeText(Register.this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
             }
         });
-        /*prefs = getSharedPreferences(ARCHIVO, Context.MODE_PRIVATE);
-        editor = prefs.edit();
-        //preferences = new HashMap<String, ?>();*/
     }
 
     private void registerUser(){
@@ -73,45 +67,29 @@ public class Register extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Map<String, Object> map = new HashMap<>();
+                    map = new HashMap<>();
                     map.put("name", nombre);
                     map.put("email", correoE);
                     map.put("password", contra);
 
-                    String id = mAuth.getCurrentUser().getUid();
+                    id = mAuth.getCurrentUser().getUid();
 
                     mDatabase.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if(task2.isSuccessful()){
-                                Intent intento = new Intent(Register.this, Menu.class);
+                                Intent intento = new Intent(Register.this, SeleccionEquipoFavorito.class);
+                                intento.putExtra("Id",id);
+                                intento.putExtra("name",nombre);
+                                intento.putExtra("email",correoE);
+                                intento.putExtra("password",contra);
                                 finish();
                                 startActivity(intento);
-                            } else Toast.makeText(Register.this, "Los daots no pudieron subirse a la base de datos", Toast.LENGTH_SHORT).show();
+                            } else Toast.makeText(Register.this, "Los datos no pudieron subirse a la base de datos", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else Toast.makeText(Register.this, "El usuario no se pudo registrar correctamente", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    /*public void registrar(View v){
-        String nombre = name.getText().toString();
-        String correoE = email.getText().toString();
-        String contra = pass.getText().toString();
-
-        if(correoE.contains("@") && correoE.contains(".")){
-
-            editor.putString("name", nombre);
-            editor.putString("email", correoE);
-            editor.putString("password", contra);
-            editor.commit();
-
-            Toast.makeText(this, "REGISTRADO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-
-            Intent intento = new Intent(this, Menu.class);
-            finish();
-            startActivity(intento);
-        } else Toast.makeText(this,"CORREO INVÁLIDO", Toast.LENGTH_SHORT).show();
-    }*/
 }
