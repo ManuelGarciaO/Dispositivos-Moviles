@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
                 @Override
                 public void onSuccess(GetTokenResult getTokenResult) {
                     Intent intento = new Intent(MainActivity.this, Principal.class);
-                    startActivity(intento);
+                    startActivity(intento); 
                 }
             });
         }
