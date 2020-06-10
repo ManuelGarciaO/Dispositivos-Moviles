@@ -59,8 +59,13 @@ public class ResultadosActiviy extends AppCompatActivity implements  Handler.Cal
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ResultadosActiviy.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        month=monthOfYear;
                         monthOfYear = monthOfYear+1;
                         fecha=dayOfMonth+"/"+monthOfYear+"/"+year;
+                        day=dayOfMonth;
+                        year=year;
+                        mCurrentDate.set(Calendar.DATE,day);
+                        mCurrentDate.set(Calendar.MONTH,month);
                         fechatxt.setText(fecha);
                         req();
                     }
