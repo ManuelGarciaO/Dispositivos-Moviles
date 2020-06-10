@@ -45,7 +45,7 @@ public class Noticias extends AppCompatActivity implements Handler.Callback, Vie
             for(int i = 0; i < datos.length(); i++){
                 JSONObject actual = datos.getJSONObject(i);
                 noticias.add(new Noticia(actual.getString("titulo"),actual.getString("descripcion"),actual.getString("url")));
-                Log.wtf("notSize",noticias.size()+"");
+                //Log.wtf("notSize",noticias.size()+"");
             }
         } catch (JSONException e) {
             e.printStackTrace();
