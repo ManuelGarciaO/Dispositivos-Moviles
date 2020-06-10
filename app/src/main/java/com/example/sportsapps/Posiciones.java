@@ -10,9 +10,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +29,8 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
     private TableLayout tabla;
     private ArrayList<DatosPosicion> lstPosiciones;
     private TableRow fila;
-    private TextView equipo, jj, jg, je, jp, dif, gf, gc, pts;
+    private TextView equipo, jj, jg, je, jp, dif, gf, gc, pts, l;
+    private ImageView logo;
     private String liga = "Liga1";
 
     @Override
@@ -57,7 +61,7 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
 
                         JSONObject equipoActual = posiciones.getJSONObject(j);
 
-                        lstPosiciones.add(new DatosPosicion(equipoActual.getString("equipo"), equipoActual.getInt("juegosJugados"), equipoActual.getInt("juegosGanados"), equipoActual.getInt("juegosEmpatados"), equipoActual.getInt("juegosPerdidos"), equipoActual.getInt("golesAFavor"), equipoActual.getInt("golesEnContra"), equipoActual.getInt("diferenciaDeGoles"), equipoActual.getInt("puntos")));
+                        lstPosiciones.add(new DatosPosicion(equipoActual.getString("equipo"), equipoActual.getInt("juegosJugados"), equipoActual.getInt("juegosGanados"), equipoActual.getInt("juegosEmpatados"), equipoActual.getInt("juegosPerdidos"), equipoActual.getInt("golesAFavor"), equipoActual.getInt("golesEnContra"), equipoActual.getInt("diferenciaDeGoles"), equipoActual.getInt("puntos"), equipoActual.getString("logo")));
                         Log.wtf("prueba",lstPosiciones.size()+"");
                     }
                 }
@@ -65,7 +69,9 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams layoutLogo = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams layoutEquipo = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams layoutJJ = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams layoutJG = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
@@ -80,6 +86,14 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
             fila.setLayoutParams(layoutFila);
 
             if(i == -1){
+                l = new TextView(this);
+                l.setText("");
+                l.setGravity(Gravity.LEFT);
+                l.setBackgroundColor(Color.BLACK);
+                l.setPadding(10, 10, 10, 10);
+                l.setLayoutParams(layoutLogo);
+                fila.addView(l);
+
                 equipo = new TextView(this);
                 equipo.setText("EQUIPO");
                 equipo.setGravity(Gravity.LEFT);
@@ -163,6 +177,12 @@ public class Posiciones extends AppCompatActivity implements Handler.Callback {
 
                 tabla.addView(fila);
             } else {
+                logo = new ImageView(this);
+                logo.setPadding(10, 10, 10, 10);
+                logo.setLayoutParams(layoutLogo);
+                Picasso.get().load(lstPosiciones.get(i).getLogo()).into(logo);
+                fila.addView(logo);
+
                 equipo = new TextView(this);
                 equipo.setGravity(Gravity.LEFT);
                 equipo.setText(lstPosiciones.get(i).getEquipo());

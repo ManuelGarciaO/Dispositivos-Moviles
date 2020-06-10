@@ -1,10 +1,10 @@
 package com.example.sportsapps;
 
 public class DatosPosicion {
-    private String equipo;
+    private String equipo, logo;
     private int jj, jg, je, jp, gf, gc, dif, pts;
 
-    public DatosPosicion(String equipo, int jj, int jg, int je, int jp, int gf, int gc, int dif, int pts) {
+    public DatosPosicion(String equipo, int jj, int jg, int je, int jp, int gf, int gc, int dif, int pts, String logo) {
         this.equipo = equipo;
         this.jj = jj;
         this.jg = jg;
@@ -14,6 +14,7 @@ public class DatosPosicion {
         this.gc = gc;
         this.dif = dif;
         this.pts = pts;
+        this.logo = logo;
     }
 
     public String getEquipo() {
@@ -87,4 +88,8 @@ public class DatosPosicion {
     public void setPts(int pts) {
         this.pts = pts;
     }
+
+    public String getLogo() { return logo; }
+
+    public void setLogo(String logo) { this.logo = logo; }
 }
