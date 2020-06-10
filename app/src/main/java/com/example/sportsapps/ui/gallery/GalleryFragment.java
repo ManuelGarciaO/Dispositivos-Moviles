@@ -20,11 +20,12 @@ import com.example.sportsapps.Posiciones;
 import com.example.sportsapps.R;
 import com.example.sportsapps.Resultado;
 import com.example.sportsapps.ResultadosActiviy;
+import com.example.sportsapps.partidos;
 
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
-    private Button btnResultados, btnPosiciones;
+    private Button btnResultados, btnPosiciones, btnPartidos;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class GalleryFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_gallery);
         btnResultados = root.findViewById(R.id.btnResultados);
         btnPosiciones = root.findViewById(R.id.btnPosiciones);
+        btnPosiciones = root.findViewById(R.id.btnPosiciones);
+        btnPartidos = root.findViewById(R.id.btnPartidos);
         btnResultados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +59,15 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 //textView.setText(s);
+            }
+        });
+        btnPartidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intento = new Intent(getContext(), partidos.class);
+                String string = getString(R.string.liga_1);
+                intento.putExtra("liga", string);
+                startActivity(intento);
             }
         });
 
