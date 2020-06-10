@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -32,7 +33,6 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
     private String id;
     DatabaseReference mRootReference;
     private Spinner selectedTeam;
-    private Button continuar;
     private ArrayList<String> nombreEquipos;
 
     @Override
@@ -40,7 +40,6 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccion_equipo_favorito);
         selectedTeam = (Spinner) findViewById(R.id.teams);
-        continuar = (Button) findViewById(R.id.continuar);
 
         equipos = new ArrayList<>();
         mRootReference = FirebaseDatabase.getInstance().getReference();
@@ -77,7 +76,7 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
         return true;
     }
 
-    public void goMenu(){
+    public void goMenu(View v){
         map.put("favoriteTeam", selectedTeam.getSelectedItem().toString());
         for(int i = 0; i < equipos.size(); i++){
             if(selectedTeam.getSelectedItem().toString().equals(equipos.get(i).getEquipo())){
