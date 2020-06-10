@@ -17,6 +17,7 @@
         <activity android:name=".Noticias" />
         <activity android:name=".ResultadosInfoActivity" />
         <activity android:name=".ResultadosActiviy" />
+        <activity android:name=".partidos" />
         <activity
             android:name=".Principal"
             android:label="@string/title_activity_principal"
