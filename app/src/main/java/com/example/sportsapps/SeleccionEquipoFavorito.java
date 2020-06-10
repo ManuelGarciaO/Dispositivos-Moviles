@@ -3,6 +3,7 @@ package com.example.sportsapps;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,6 +11,7 @@ import android.os.Message;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +33,7 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
     DatabaseReference mRootReference;
     private Spinner selectedTeam;
     private Button continuar;
+    private ArrayList<String> nombreEquipos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,15 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
         map.put("name", getIntent().getStringExtra("name"));
         map.put("email", getIntent().getStringExtra("email"));
         map.put("password", getIntent().getStringExtra("password"));
-        //mRootReference.child("Users").child(id).setValue(map);
 
         Request r = new Request("https://manuel19299.github.io/SportsApp/data/equipos.json", dataHandler);
         r.start();
+        nombreEquipos = new ArrayList<>();
+        for(int i = 0; i < equipos.size(); i++){
+            nombreEquipos.add(equipos.get(i).getEquipo());
+        }
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, equipos);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, nombreEquipos);
         selectedTeam.setAdapter(adapter);
     }
 
@@ -69,5 +75,19 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
             ex.getMessage();
         }
         return true;
+    }
+
+    public void goMenu(){
+        map.put("favoriteTeam", selectedTeam.getSelectedItem().toString());
+        for(int i = 0; i < equipos.size(); i++){
+            if(selectedTeam.getSelectedItem().toString().equals(equipos.get(i).getEquipo())){
+                map.put("liga", equipos.get(i).getLiga());
+                break;
+            }
+        }
+        mRootReference.child("Users").child(id).setValue(map);
+        Intent intent = new Intent(SeleccionEquipoFavorito.this, Menu.class);
+        finish();
+        startActivity(intent);
     }
 }
