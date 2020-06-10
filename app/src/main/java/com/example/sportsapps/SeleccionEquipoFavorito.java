@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,18 +54,13 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
 
         Request r = new Request("https://manuel19299.github.io/SportsApp/data/equipos.json", dataHandler);
         r.start();
-        nombreEquipos = new ArrayList<>();
-        for(int i = 0; i < equipos.size(); i++){
-            nombreEquipos.add(equipos.get(i).getEquipo());
-        }
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, nombreEquipos);
-        selectedTeam.setAdapter(adapter);
     }
 
     @Override
     public boolean handleMessage(@NonNull Message msg){
         JSONArray datos = (JSONArray) msg.obj;
+        Log.wtf("Loque",datos.toString());
         try{
             for(int i = 0; i < datos.length(); i++ ){
                 JSONObject actual = datos.getJSONObject(i);
@@ -73,6 +69,15 @@ public class SeleccionEquipoFavorito extends AppCompatActivity implements Handle
         }catch(JSONException ex){
             ex.getMessage();
         }
+        nombreEquipos = new ArrayList<>();
+        Log.wtf("Loque",equipos.size()+"");
+        for(int i = 0; i < equipos.size(); i++){
+            Log.wtf("Loque",equipos.get(i).getEquipo());
+            nombreEquipos.add(equipos.get(i).getEquipo());
+        }
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, nombreEquipos);
+        selectedTeam.setAdapter(adapter);
         return true;
     }
 
