@@ -66,11 +66,52 @@ public class partidos extends AppCompatActivity implements  Handler.Callback{
                 DatePickerDialog datePickerDialog = new DatePickerDialog(partidos.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        month=monthOfYear;
                         monthOfYear = monthOfYear+1;
                         fecha=dayOfMonth+"/"+monthOfYear+"/"+year;
-                        if(dayOfMonth>=diaA && monthOfYear>=mesA && year>=anioA){
-                            fechatxt.setText(fecha);
-                            req();
+                        day=dayOfMonth;
+                        year=year;
+                        if(year>=anioA){
+                            Log.wtf("fechaSol","ano coincide");
+                            if(monthOfYear>mesA){
+                                mCurrentDate.set(Calendar.DATE,day);
+                                mCurrentDate.set(Calendar.MONTH,month);
+                                Log.wtf("fechaSol","mes mayor");
+                                fechatxt.setText(fecha);
+                                req();
+                                if(fecha.equals(fechaActual)){
+                                    btnAtras.setVisibility(View.INVISIBLE);
+                                    btnAtras.setClickable(false);
+                                }
+                                else{
+                                    btnAtras.setVisibility(View.VISIBLE);
+                                    btnAtras.setClickable(true);
+                                }
+                            }
+                            else if(monthOfYear==mesA){
+                                Log.wtf("fechaSol","mes igual");
+                                if(dayOfMonth>=diaA){
+                                    mCurrentDate.set(Calendar.DATE,day);
+                                    mCurrentDate.set(Calendar.MONTH,month);
+                                    Log.wtf("fechaSol","dia igual o mayor");
+                                    fechatxt.setText(fecha);
+                                    req();
+                                    if(fecha.equals(fechaActual)){
+                                        btnAtras.setVisibility(View.INVISIBLE);
+                                        btnAtras.setClickable(false);
+                                    }
+                                    else{
+                                        btnAtras.setVisibility(View.VISIBLE);
+                                        btnAtras.setClickable(true);
+                                    }
+                                }
+                                else{
+                                    Toast.makeText(partidos.this, "Fecha no permitida", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else{
+                                Toast.makeText(partidos.this, "Fecha no permitida", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else{
                             Toast.makeText(partidos.this, "Fecha no permitida", Toast.LENGTH_SHORT).show();
